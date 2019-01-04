@@ -20,16 +20,18 @@ mongoose.connect('mongodb://localhost/madcamp_week2');
 
 // DEFINE MODEL
 var Contact = require('./models/contact');
+var Image   = require('./models/image');
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/public', express.static('uploads'));
 
 // [CONFIGURE SERVER PORT]
 var port = 80;
 
 // [CONFIGURE ROUTER]
-var router = require('./routes')(app, Contact);
+var router = require('./routes')(app, mongoose, Contact, Image);
 
 // [RUN SERVER]
 var server = app.listen(port, function(){
